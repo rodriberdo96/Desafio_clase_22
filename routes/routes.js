@@ -17,9 +17,9 @@ routes.get('/login', (req, res) => {
 
 routes.post('/login', passport.authenticate('login', {failureRedirect: '/login-error'}), (req, res) => res.redirect('/products'))
 
-//REGISTER
+//SIGNUP
 routes.get('/signup', (req, res) => {
-    if (req.isAuthenticated()) return res.redirect('/products')
+    if (req.isAuthenticated()) return res.redirect('/login')
     res.render('signup')
 })
 

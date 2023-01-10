@@ -50,7 +50,7 @@ export const strategySignup = new Strategy({
                 console.log('Error al guardar el usuario: ' + err);
                 return done(err);
             }
-            console.log(user)
+            console.log(username)
             console.log('El usuario se registró correctamente');
             return done(null, userWithId);
         });
