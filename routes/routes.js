@@ -10,26 +10,24 @@ routes.get('/', isAuth, (req, res) => res.render('products', {
 }))
 
 //LOGIN
-routes.get('/login', (req, res) => res.render('login'))
+routes.get('/login', (req, res) => {
+    if (req.isAuthenticated()) return res.redirect('/products')
+    res.render('login')
+})
 
-routes.post('/login', passport.authenticate('login', {
-    successRedirect: '/products',
-    failureRedirect: '/login-error',
-    failureFlash: true
-}))
+routes.post('/login', passport.authenticate('login', {failureRedirect: '/login-error'}), (req, res) => res.redirect('/products'))
 
 //REGISTER
-routes.get('/register', (req, res) => res.render('register'))
+routes.get('/signup', (req, res) => {
+    if (req.isAuthenticated()) return res.redirect('/products')
+    res.render('signup')
+})
 
-routes.post('/register', passport.authenticate('register', {
-    successRedirect: '/products',
-    failureRedirect: '/register-error',
-    failureFlash: true
-}))
+routes.post('/signup', passport.authenticate('signup', {failureRedirect: '/signup-error'}), (req, res) => res.redirect('/login'))
 
 //LOGOUT
 
-routes.get('/logout', (req, res) => {
+routes.get('/logout', isAuth, (req, res) => {
     req.logout(err => {
         if (err) return err
         res.redirect('/login')
@@ -41,9 +39,9 @@ routes.get('/login-error', (req, res) => {
     if (req.isAuthenticated()) return res.redirect('/products')
     res.render('login-error')
 })
-routes.get('/register-error', (req, res) => {
+routes.get('/signup-error', (req, res) => {
     if (req.isAuthenticated()) return res.redirect('/products')
-    res.render('register-error')
+    res.render('signup-error')
 })
 
 
