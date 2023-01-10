@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script>src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"</script>
+    <title>Document</title>
+</head>
+<body>
+    <main class="container bg-light ">
+        <h1>Registro de Usuario</h1>
+            <form class="form" action="/register" method="post" role="form" autocomplete="off">
+                <div class="row g-3">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Nombre de Usuario" name="username" id="username" required>
+                        <input type="password" class="form-control" placeholder="contraseña" name="password" id="password" required>
+                        <button type="submit" class="btn btn-outline-success" id="envRegistro" value="Register">Registrar</button>
+                    </div>
+                </div>
+            </form>
+            <div class="col">
+                <button class="btn btn-outline-success" id="envUsuario" onclick="location.href='/login'">Login</button>
+            </div>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js"></script>
+
+</html>

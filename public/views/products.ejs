@@ -9,9 +9,12 @@
 </head>
 <body>
     <div style="display: flex; justify-content:space-evenly; align-items:center; margin-bottom: 2rem;">
-        <h3>Bienvenido!</h3>
+        <h3>Bienvenido <%=userName%> !</h3>
         <a class="btn btn-warning" href="/logout">Salir</a>
     </div>
+    <header>
+        <%- include('../partials/navbar'); %>
+    </header>
     <table class="table table-dark table-striped">
         <thead>
             <tr>
