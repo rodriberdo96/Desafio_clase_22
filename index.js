@@ -30,11 +30,23 @@ app.use( session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.get ('/products', (req, res) => {
+    res.render('products')
+})
 app.use(routes)
 
 
 app.listen(8080, ()=> {
     console.log('Server running on port http://localhost:8080/login')
 })
+
+
+
+
+
+
+
+
+
+
 

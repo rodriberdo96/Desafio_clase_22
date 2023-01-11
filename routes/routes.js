@@ -5,9 +5,9 @@ import { isAuth } from '../middleware/isAuth.js'
 const routes = Router()
 
 //INDEX
-routes.get('/', isAuth, (req, res) => res.render('products', {
-    user: req.user
-}))
+routes.get('/', (req, res) => {
+    res.render('products', {user: req.session.user});
+});
 
 //LOGIN
 routes.get('/login', (req, res) => {

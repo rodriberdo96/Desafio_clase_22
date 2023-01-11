@@ -33,7 +33,7 @@ export const strategySignup = new Strategy({
     (req, username, password, done) => {
         User.findOne({ 'username': username }, function (err, user) {
         if (err) {
-            console.log('Error in SingUp: ' + err);
+            console.log('Error in SignUp: ' + err);
             return done(err);
         }
         if (user) {
@@ -41,7 +41,6 @@ export const strategySignup = new Strategy({
             return done(null, false)
         }
         const newUser = {
-            name: req.body.name,
             username: req.body.username,
             password: createHash(password),
         }
