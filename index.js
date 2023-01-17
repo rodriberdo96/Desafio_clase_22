@@ -2,9 +2,9 @@ import express from "express"
 import session from "express-session"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
-
+import PORT from "./utils/minimist.js"
 const app = express()
-
+import randomRoutes from "./routes/randomRoutes.js"
 import passport from "passport";
 import { strategyLogin, strategySignup } from "./middleware/passportLocal.js"
 
@@ -33,12 +33,16 @@ app.use(passport.session());
 app.get ('/products', (req, res) => {
     res.render('products')
 })
+
+
 app.use(routes)
+app.use('/api', randomRoutes)
 
 
-app.listen(8080, ()=> {
-    console.log('Server running on port http://localhost:8080/login')
-})
+
+
+
+app.listen(PORT, () => console.log(`http://localhost:${PORT}/login`))
 
 
 
