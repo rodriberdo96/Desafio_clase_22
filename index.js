@@ -6,7 +6,12 @@ import PORT from "./utils/minimist.js"
 const app = express()
 import randomRoutes from "./routes/randomRoutes.js"
 import passport from "passport";
+import cluster from 'cluster'
+import os from 'os'
 import { strategyLogin, strategySignup } from "./middleware/passportLocal.js"
+
+const args = minimist(process.argv.slice(2))
+const numCPUs = os.cpus().length
 
 passport.use('login', strategyLogin);
 passport.use('signup', strategySignup)
@@ -42,7 +47,25 @@ app.use('/api', randomRoutes)
 
 
 
-app.listen(PORT, () => console.log(`http://localhost:${PORT}/login`))
+if (modoServer == 'CLUSTER') {
+    if (cluster.isPrimary) {
+
+        console.log(`Master ${process.pid} id running`)
+    
+        for (let i = 0; i < numCPUs; i++) {
+            cluster.fork()  
+        }
+        cluster.on('exit', (worker, code, signal) => {
+            console.log(`worker ${worker.process.pid} died`)
+        })
+    } else {
+        app.listen(PORT, () => console.log(`http://localhost:${PORT}/login/ o http://localhost:${PORT}/api/random/`))
+    
+        console.log(`Worker ${process.pid} started`)
+    }
+} else {
+    app.listen(PORT, () => console.log(`http://localhost:${PORT}/login/ o http://localhost:${PORT}/api/random/`))
+}
 
 
 
