@@ -3,7 +3,8 @@ import session from "express-session"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import PORT from "./src/utils/minimist.js"
-const app = express()
+import minimist from "minimist"
+
 import randomRoutes from "./src/routes/randomRoutes.js"
 import passport from "passport";
 import cluster from 'cluster'
@@ -11,6 +12,9 @@ import os from 'os'
 import compression from 'express'
 import { strategyLogin, strategySignup } from "./src/middleware/passportLocal.js"
 import { loggerInfo, loggerError, loggerWarn } from './src/utils/log4js.js'
+
+
+const app = express()
 const args = minimist(process.argv.slice(2))
 const numCPUs = os.cpus().length
 
@@ -20,7 +24,7 @@ passport.use('signup', strategySignup)
 import routes from './src/routes/routes.js'
 
 app.set('view engine', 'ejs')
-app.set('views', './public/views')
+app.set('views', './src/public/views')
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
